@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  app:
+    image: ghcr.io/wittemberg/p3.awecloudsolution.com:${IMAGE_TAG:-main}
+    read_only: true
+    networks: [interna]
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+        reservations:
+          memory: 64M
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+        monitor: 45s
+      rollback_config:
+        parallelism: 1
+        order: stop-first
+      restart_policy:
+        condition: any
+        delay: 5s
+      labels:
+        - traefik.enable=true
+        - traefik.swarm.network=interna
+        - traefik.http.routers.p3.rule=Host(`p3.awecloudsolution.com`)
+        - traefik.http.routers.p3.entrypoints=websecure
+        - traefik.http.routers.p3.tls.certresolver=letsencryptresolver
+        - traefik.http.services.p3.loadbalancer.server.port=8000
+networks:
+  interna:
+    external: true

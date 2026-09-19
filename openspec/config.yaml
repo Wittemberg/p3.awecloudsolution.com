@@ -1,0 +1,12 @@
+schema: spec-driven
+context: |
+  P3: plataforma aberta de prevenção de perdas, ERP-agnostic.
+  Consulte AGENTS.md, docs/estado-atual.md, docs/prd.md e docs/trd.md.
+  Runtime inicial Python 3.12/FastAPI em Docker; destino Swarm/Portainer.
+  Uma mudança ativa; documentos globais não duplicam tarefas OpenSpec.
+  Não coletar dados reais nem modificar stacks existentes no bootstrap.
+rules:
+  specs:
+    - Distinguir comportamento entregue de intenção futura e incluir cenários de falha.
+  tasks:
+    - Marcar conclusão somente com evidência e registrar bloqueios externos.
