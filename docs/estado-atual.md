@@ -33,7 +33,11 @@ referenciada em [deploy.md](deploy.md). Não houve troca de edição, contrataç
 criação de stack pública ou alteração de PostgreSQL/Traefik/serviços existentes.
 Credencial administrativa Portainer, registry GHCR e secret de webhook não fornecidos.
 Workflow preparado para publicar com GITHUB_TOKEN; deploy só com DEPLOY_ENABLED=true.
-Execução remota de Actions e publicação precisam ser confirmadas após push.
+Execução remota confirmada: [run 35463803288](https://github.com/Wittemberg/p3.awecloudsolution.com/actions/runs/35463803288),
+commit `35f6d8263b33988048b2fa4601617f29fbf03815`: test SUCCESS, publish SUCCESS,
+deploy SKIPPED conforme configuração. Imagem publicada como
+`ghcr.io/wittemberg/p3.awecloudsolution.com:sha-35f6d8263b33988048b2fa4601617f29fbf03815`
+e `:main`. Isso confirma publicação, não pull privado pelo Portainer nem deploy público.
 
 Para continuar: resolver BE ou alternativa CE, seguir runbook de credenciais/stack,
 verificar release pública por SHA. Não arquivar mudança antes das tarefas pendentes.

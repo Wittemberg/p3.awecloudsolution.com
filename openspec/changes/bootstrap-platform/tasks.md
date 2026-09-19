@@ -11,7 +11,7 @@
 ## 3. Verification
 - [x] 3.1 Run container tests and local endpoint smoke checks.
 - [x] 3.2 Validate OpenSpec strictly and inspect generated Codex integration.
-- [ ] 3.3 Record limitations, commit and synchronize resulting files.
+- [x] 3.3 Record limitations, commit and synchronize resulting files.
 
 ## 4. External deployment completion
 - [ ] 4.1 Obtain compatible Portainer edition or agreed CE design and administrative access.
