@@ -1,8 +1,8 @@
 # Estado atual — P3
 
-M0 e M1 concluídos. Sem mudança ativa após arquivamento de m1-event-contract.
+M0 e M1 concluídos. Mudança ativa: `m2-screencam-poc` (implementação; 6/16 tarefas).
 Histórico: `openspec/changes/archive/`; requisitos em `openspec/specs/`.
-Próximo marco: M2 — PoC ScreenCam em Linux Mint e NVR reais.
+Marco em andamento: M2 — PoC ScreenCam em Linux Mint e NVR reais.
 
 ## M1 entregue
 
@@ -43,7 +43,21 @@ exigem versão nova, fixtures e migração do integrador.
 
 ## Próximo trabalho
 
-M2 requer identificar Linux Mint (versão, X11/Wayland, CPU/RAM, acesso de teste) e
-NVR (fabricante, modelo, firmware, gravação/consulta RTSP/ONVIF). Validar captura,
+M2: inventário/runbook em [ScreenCam](screencam-m2.md). Configuração privada e preflight
+em scripts/screencam_config.py; supervisor em scripts/screencam_capture.py e serviço
+de usuário preparados. 48 testes novos, 131 totais aprovados no Docker; Ruff e
+contratos sem divergência. Probes X11 simulados; supervisor testado com subprocessos
+reais sintéticos. Unidade systemd passou em `systemd-analyze --user verify`, sem
+instalação/ativação. Laboratório Xvfb/FFmpeg/MediaMTX em containers passou: frames
+decodificados antes/depois de interrupção, retomada observada em 4,515 s e matriz
+de negação de acesso aprovada. [Evidência sanitizada](screencam-lab-evidence.json).
+OpenSpec strict: 3 itens aprovados. Recursos temporários removidos pelo executor.
+Próximo: coleta de métricas, stack de PoC e ensaio de serviço no Mint.
+O kit M2 não foi ativado na máquina real e não conclui a qualificação NVR.
+
+O usuário ainda preparará o Linux Mint (versão, X11/Wayland, CPU/RAM a confirmar).
+NVR disponível: AITEK SIGMA-N210, firmware a confirmar; ambos dependem de VPN para
+acesso remoto. VPN ainda não instalada/configurada. Kit e laboratório podem avançar.
+Tarefas canônicas em `openspec/changes/m2-screencam-poc/tasks.md`. Validar captura,
 consumo, reconexão e recuperação histórica com dados sintéticos e política de acesso.
 Não iniciar coleta de clientes antes de retenção e permissões definidas.

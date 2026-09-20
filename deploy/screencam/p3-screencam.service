@@ -1,0 +1,23 @@
+[Unit]
+Description=P3 ScreenCam synthetic qualification capture
+PartOf=graphical-session.target
+After=graphical-session.target
+StartLimitIntervalSec=120
+StartLimitBurst=3
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 %h/.local/lib/p3-screencam/screencam_capture.py %h/.config/p3-screencam/config.json
+Restart=on-failure
+RestartPreventExitStatus=2
+RestartSec=10
+TimeoutStopSec=10
+KillMode=control-group
+UMask=0077
+NoNewPrivileges=yes
+LimitCORE=0
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=graphical-session.target

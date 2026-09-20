@@ -1,0 +1,47 @@
+{
+  "run_id": "p3-video-lab-82f63814",
+  "environment": "synthetic-xvfb-not-mint-or-nvr",
+  "started_at": "2026-09-20T03:33:07.702404+00:00",
+  "checks": {
+    "preflight": {
+      "status": "ready",
+      "capture_started": false,
+      "display_size": [
+        1280,
+        720
+      ],
+      "region": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720
+      },
+      "fps": 10
+    },
+    "initial_video": {
+      "decoded_frames": 10,
+      "unique_frames": 10
+    },
+    "wrong_password": "denied-401",
+    "anonymous_reader": "denied-401",
+    "wrong_path": "denied-401",
+    "publisher_cannot_read": "denied-401",
+    "unauthorized_publishers": "reader-and-anonymous-denied-401",
+    "recovered_video": {
+      "decoded_frames": 10,
+      "unique_frames": 9
+    },
+    "recovery_s": 4.515
+  },
+  "versions": {
+    "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "mediamtx": "v1.12.3"
+  },
+  "result": "passed",
+  "limitations": [
+    "synthetic Xvfb, not Linux Mint",
+    "no NVR recording or history",
+    "recovery is time to decode 10 frames after server start, not video latency",
+    "no CPU/RAM/bitrate benchmark yet"
+  ]
+}

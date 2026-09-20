@@ -1,0 +1,10 @@
+{
+  "display": ":0.0",
+  "region": {"x": 0, "y": 0, "width": 1280, "height": 720},
+  "fps": 10,
+  "host": "127.0.0.1",
+  "port": 8554,
+  "path": "p3-synthetic",
+  "username": "replace-publisher",
+  "password": "replace-with-local-secret"
+}
