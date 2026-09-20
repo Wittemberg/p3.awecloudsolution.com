@@ -32,3 +32,7 @@ restrita em mudança futura. Bootstrap não se conecta ao PostgreSQL.
 Atualização confirmada: imagem EE com digest
 `sha256:0cd22f754ac52fcfceb362d5ce8f47ee23a5f6427484db17ebfaa4c8a00f7718`.
 Status público não comprova licença ativa nem permissão administrativa.
+
+P3 implantado: stack Portainer ID 3, ambiente primary ID 1, registry GHCR ID 1.
+Serviço p3_app usa overlay interna e router TLS p3; PostgreSQL permanece intocado.
+Webhook autenticado pela URL secreta testado; HTTPS público e revisão confirmados.

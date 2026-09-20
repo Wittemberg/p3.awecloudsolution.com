@@ -4,6 +4,17 @@ Verificado em 2026-09-19. O bootstrap pode rodar localmente já; o deploy públi
 precisa de registry, stack gerenciada e webhook configurados. Não cole tokens no Git,
 no chat ou em arquivos versionados. SSH de Git e autenticação GHCR são independentes.
 
+## Estado realizado
+
+Stack `p3` (ID 3), ambiente `primary` (ID 1), registry GHCR autenticado existente
+(ID 1) reutilizado. Webhook habilitado; URL disponível somente no arquivo local
+`.local/portainer-stack-webhook` (600, fora do Git). HTTPS e revisão pública validados.
+Falta cadastrar secret/variável no GitHub e provar promoção automática de uma nova imagem.
+A tentativa com o token fornecido retornou HTTP 403: identidade lucaslyrab-rgb sem
+administração do repositório. Usar credencial de Wittemberg ou conta autorizada;
+aumentar escopos de um token não concede acesso que sua conta não possui.
+Os passos 3–5 abaixo permanecem como procedimento de reprodução; não recriar os recursos.
+
 ## 1. Edição atual e acesso
 
 O usuário atualizou o servidor de CE para **EE**. Inspeção confirmou a imagem

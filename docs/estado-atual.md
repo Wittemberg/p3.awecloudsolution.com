@@ -26,21 +26,34 @@ Produto de negócio ainda não implementado; documentos propostos não represent
 - Imagem base fixada por digest e dependências resolvidas em constraints.txt.
 - Verificação visual em navegador, carga, hardware/NVR, segurança integral e UAT não executados.
 
+## Implantação pública verificada
+
+Portainer EE 2.45.1 acessado com token fornecido por caminho local protegido.
+Stack `p3` ID 3 criada pelo Portainer no ambiente `primary` ID 1; registry GHCR ID 1
+já existente reutilizado. Webhook de stack habilitado e teste POST aceito.
+Serviço `p3_app` executa a imagem publicada pelo Actions:
+`ghcr.io/wittemberg/p3.awecloudsolution.com:sha-35f6d8263b33988048b2fa4601617f29fbf03815`
+com digest `sha256:fb3a00bf43be736fea76104c229a300cf6f31fe5a4ccf13df001a8a9aee4ede0`.
+HTTPS validado sem ignorar certificado: https://p3.awecloudsolution.com/api/health
+retorna status ok e revision `35f6d8263b33988048b2fa4601617f29fbf03815`.
+Na primeira consulta o certificado ainda estava em emissão; nova consulta passou.
+
+URL secreta do webhook em `.local/portainer-stack-webhook`, permissão 600, diretório
+700 e ignorado pelo Git. Nunca incluir conteúdo em documentação/logs.
+O token administrativo Portainer não foi copiado ao projeto.
+
 ## Limites e próximo passo
 
-Portainer atualizado pelo usuário para EE; verificado por imagem `portainer/portainer-ee`
-e `/api/status` versão 2.45.1. Bloqueio de edição instalado resolvido; licença e
-disponibilidade do webhook ainda dependem de acesso autenticado. Não foi criada
-stack pública nem alterado PostgreSQL/Traefik nesta retomada.
-Credencial administrativa Portainer, registry GHCR e secret de webhook não fornecidos.
-Workflow preparado para publicar com GITHUB_TOKEN; deploy só com DEPLOY_ENABLED=true.
-Execução remota confirmada: [run 35463803288](https://github.com/Wittemberg/p3.awecloudsolution.com/actions/runs/35463803288),
-commit `35f6d8263b33988048b2fa4601617f29fbf03815`: test SUCCESS, publish SUCCESS,
-deploy SKIPPED conforme configuração. Imagem publicada como
-`ghcr.io/wittemberg/p3.awecloudsolution.com:sha-35f6d8263b33988048b2fa4601617f29fbf03815`
-e `:main`. Isso confirma publicação, não pull privado pelo Portainer nem deploy público.
+Ainda faltam secret `PORTAINER_STACK_WEBHOOK` no environment `production` e variável
+de repositório `DEPLOY_ENABLED=true` no GitHub. O token fornecido autentica como
+`lucaslyrab-rgb`, com apenas leitura no repositório; criar environment retornou HTTP 403.
+Nenhum secret/variável foi alterado. É necessário token de identidade com acesso
+administrativo ao repositório. A chave SSH permite push, não configuração pela API.
+Seguir [deploy.md](deploy.md), ou fornecer apenas o caminho local de uma credencial
+GitHub com permissão suficiente. Depois executar o workflow e verificar **nova** revisão.
+Teste do webhook com a mesma imagem prova acionamento, não a promoção de uma release nova.
 
-Para continuar: disponibilizar token API do Portainer por arquivo local protegido,
-conferir licença/ambiente e seguir runbook de credenciais/stack,
-verificar release pública por SHA. Não arquivar mudança antes das tarefas pendentes.
-Depois, detalhar M1 no roadmap com contratos de domínio e cenários de isolamento.
+Run de build/publicação já concluído: [35463803288](https://github.com/Wittemberg/p3.awecloudsolution.com/actions/runs/35463803288):
+test SUCCESS, publish SUCCESS e deploy SKIPPED na configuração anterior.
+Não arquivar até finalizar a prova de atualização automática. Sem alterações em
+PostgreSQL, stacks existentes ou dados de clientes. Produto funcional segue no roadmap.
