@@ -28,9 +28,10 @@ Produto de negócio ainda não implementado; documentos propostos não represent
 
 ## Limites e próximo passo
 
-Portainer CE observado; stack webhook solicitado requer BE conforme fonte oficial
-referenciada em [deploy.md](deploy.md). Não houve troca de edição, contratação,
-criação de stack pública ou alteração de PostgreSQL/Traefik/serviços existentes.
+Portainer atualizado pelo usuário para EE; verificado por imagem `portainer/portainer-ee`
+e `/api/status` versão 2.45.1. Bloqueio de edição instalado resolvido; licença e
+disponibilidade do webhook ainda dependem de acesso autenticado. Não foi criada
+stack pública nem alterado PostgreSQL/Traefik nesta retomada.
 Credencial administrativa Portainer, registry GHCR e secret de webhook não fornecidos.
 Workflow preparado para publicar com GITHUB_TOKEN; deploy só com DEPLOY_ENABLED=true.
 Execução remota confirmada: [run 35463803288](https://github.com/Wittemberg/p3.awecloudsolution.com/actions/runs/35463803288),
@@ -39,6 +40,7 @@ deploy SKIPPED conforme configuração. Imagem publicada como
 `ghcr.io/wittemberg/p3.awecloudsolution.com:sha-35f6d8263b33988048b2fa4601617f29fbf03815`
 e `:main`. Isso confirma publicação, não pull privado pelo Portainer nem deploy público.
 
-Para continuar: resolver BE ou alternativa CE, seguir runbook de credenciais/stack,
+Para continuar: disponibilizar token API do Portainer por arquivo local protegido,
+conferir licença/ambiente e seguir runbook de credenciais/stack,
 verificar release pública por SHA. Não arquivar mudança antes das tarefas pendentes.
 Depois, detalhar M1 no roadmap com contratos de domínio e cenários de isolamento.

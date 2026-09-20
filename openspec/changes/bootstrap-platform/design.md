@@ -1,5 +1,5 @@
 ## Context
-Aplicação inexistente; v0.2 amplo; Swarm único nó e Portainer CE observado.
+Aplicação inexistente; v0.2 amplo; Swarm único nó; Portainer inicialmente CE, atualizado pelo usuário para EE 2.45.1.
 
 ## Goals / Non-Goals
 Entregar base local e documentação; preparar CI/CD. Não implementar ingestão real,
@@ -13,8 +13,8 @@ Actions publica imagem de commit e só chama webhook se DEPLOY_ENABLED=true.
 Valida revision servida, porque resposta de webhook não comprova rollout.
 
 ## Risks / Trade-offs
-CE não possui stack webhook documentado: preparar caminho BE, exigir decisão antes
-de ativação. Único nó sem HA. Base fixada por digest e transitivas em constraints.txt; auditoria de dependências antes de produção.
+EE instalada; acesso administrativo e licença/webhook precisam de verificação autenticada
+antes de ativação. Único nó sem HA. Base fixada por digest e transitivas em constraints.txt; auditoria de dependências antes de produção.
 
 ## Migration Plan
 Sem persistência de produto. Local: docker compose up/down. Produção futura: Portainer

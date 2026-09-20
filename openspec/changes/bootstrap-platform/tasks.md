@@ -14,6 +14,6 @@
 - [x] 3.3 Record limitations, commit and synchronize resulting files.
 
 ## 4. External deployment completion
-- [ ] 4.1 Obtain compatible Portainer edition or agreed CE design and administrative access.
+- [ ] 4.1 Obtain administrative access and verify license/webhook availability (EE 2.45.1 installation confirmed).
 - [ ] 4.2 Create Portainer-managed stack, registry and secret webhook; enable deployment.
 - [ ] 4.3 Verify GitHub Actions run and matching live revision; archive only after required scope is complete.

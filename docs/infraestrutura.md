@@ -10,7 +10,7 @@ Inspeção somente leitura em 2026-09-19; não é auditoria completa de seguran�
 | Docker | 29.8.1; Swarm ativo, um manager e um nó |
 | Rede | overlay externa `interna` |
 | Proxy | `traefik_traefik`, Traefik v3.5.3; web/websecure; letsencryptresolver |
-| Portainer | `portainer_portainer`, imagem portainer-ce:latest; agente global |
+| Portainer | `portainer_portainer`, atualizado pelo usuário para portainer-ee:latest; API informa 2.45.1; agente global |
 | Painel | https://wit-portainer.awecloudsolution.com |
 | Banco | `postgres_postgres`, PostgreSQL 14; volume postgres_data; sem porta publicada |
 | pgAdmin | `pgadmin_pgadmin`, dpage/pgadmin4:latest |
@@ -28,3 +28,7 @@ senhas, tokens ou conteúdo de chaves privadas.
 
 O banco compartilhado será preservado. Propor banco/role exclusivos de P3 e rede
 restrita em mudança futura. Bootstrap não se conecta ao PostgreSQL.
+
+Atualização confirmada: imagem EE com digest
+`sha256:0cd22f754ac52fcfceb362d5ce8f47ee23a5f6427484db17ebfaa4c8a00f7718`.
+Status público não comprova licença ativa nem permissão administrativa.

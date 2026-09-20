@@ -4,15 +4,18 @@ Verificado em 2026-09-19. O bootstrap pode rodar localmente já; o deploy públi
 precisa de registry, stack gerenciada e webhook configurados. Não cole tokens no Git,
 no chat ou em arquivos versionados. SSH de Git e autenticação GHCR são independentes.
 
-## 1. Resolver a divergência CE / webhook
+## 1. Edição atual e acesso
 
-O servidor usa **Portainer CE**. A documentação oficial reserva **stack webhooks à
-Business Edition**. Para cumprir exatamente o fluxo solicitado, selecionar BE e
-validar licença/migração com backup do Portainer. Este projeto não altera a edição.
-Se preferir manter CE, definir uma mudança para alternativa suportada (por exemplo,
-atualização autenticada pela API); isso requer outro desenho de credenciais e pipeline.
-Não habilitar DEPLOY_ENABLED enquanto esse ponto não estiver resolvido.
-[Fonte: webhooks de stack](https://docs.portainer.io/user/docker/stacks/webhooks).
+O usuário atualizou o servidor de CE para **EE**. Inspeção confirmou a imagem
+`portainer/portainer-ee` e a API pública informou versão **2.45.1**. O caminho de
+stack webhook planejado pode prosseguir após conferir licença e acesso autenticado.
+[Fonte do requisito de edição: webhooks de stack](https://docs.portainer.io/user/docker/stacks/webhooks).
+
+Para automação, gerar um access token no perfil do usuário administrativo do Portainer.
+Guardar o valor em arquivo local fora do Git com permissão 600 e informar somente
+seu caminho. Não enviar senha/token no chat. Esse token permite configurar a stack;
+o workflow usará apenas a URL secreta do webhook. Revogar o token de preparação
+quando não for mais necessário. DEPLOY_ENABLED continua desabilitado até a validação.
 
 ## 2. Publicação no GitHub Actions
 
