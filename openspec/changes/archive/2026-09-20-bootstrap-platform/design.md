@@ -14,11 +14,11 @@ Valida revision servida, porque resposta de webhook não comprova rollout.
 
 ## Risks / Trade-offs
 EE instalada e acesso administrativo verificado; stack e webhook criados/testados.
-Ativação automática aguarda secret e variável GitHub; provar promoção de nova revisão. Único nó sem HA. Base fixada por digest e transitivas em constraints.txt; auditoria de dependências antes de produção.
+Secret e variável GitHub configurados; run 35483369209 comprovou promoção da revisão 4fe6648. Único nó sem HA. Base fixada por digest e transitivas em constraints.txt; auditoria de dependências antes de produção.
 
 ## Migration Plan
 Sem persistência de produto. Local: docker compose up/down. Produção futura: Portainer
 cria stack pelo arquivo; rollback para IMAGE_TAG de commit anterior. Não migrar banco.
 
 ## Open Questions
-Credencial API GitHub ou configuração manual dos secrets/variables; volumetria e NVR do piloto; retenção e orçamento.
+Bootstrap sem pendências; volumetria e NVR do piloto, retenção e orçamento pertencem às próximas mudanças.

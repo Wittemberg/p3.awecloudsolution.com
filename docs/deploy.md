@@ -9,10 +9,10 @@ no chat ou em arquivos versionados. SSH de Git e autenticação GHCR são indepe
 Stack `p3` (ID 3), ambiente `primary` (ID 1), registry GHCR autenticado existente
 (ID 1) reutilizado. Webhook habilitado; URL disponível somente no arquivo local
 `.local/portainer-stack-webhook` (600, fora do Git). HTTPS e revisão pública validados.
-Falta cadastrar secret/variável no GitHub e provar promoção automática de uma nova imagem.
-A tentativa com o token fornecido retornou HTTP 403: identidade lucaslyrab-rgb sem
-administração do repositório. Usar credencial de Wittemberg ou conta autorizada;
-aumentar escopos de um token não concede acesso que sua conta não possui.
+Secret production/PORTAINER_STACK_WEBHOOK e variável de repositório DEPLOY_ENABLED=true
+configurados. A tentativa inicial com conta sem acesso foi resolvida após atualização
+da credencial. Run 35483369209 concluiu test/publish/deploy com sucesso e a revisão
+4fe6648e860f5459dcadfda8f9c1d3958dc5e1bb foi comprovada no domínio público.
 Os passos 3–5 abaixo permanecem como procedimento de reprodução; não recriar os recursos.
 
 ## 1. Edição atual e acesso
@@ -113,7 +113,7 @@ leitura do GHCR fica no Portainer, não é necessário como secret no Actions.
    de webhook isolada não aprova deploy. Se a edição instalada não aplicar variáveis
    conforme documentação, o teste de revision falha e a configuração deve ser corrigida.
 5. Conferir Portainer: serviço p3_app 1/1, imagem/revision esperadas e logs sem erro.
-6. Registrar URL do run, SHA/digest, horário e resultado. Esta prova ainda está pendente.
+6. Registrar URL do run, SHA/digest, horário e resultado. Prova realizada no run 35483369209; repetir após mudanças relevantes.
 
 ## 8. Rollback e diagnóstico
 

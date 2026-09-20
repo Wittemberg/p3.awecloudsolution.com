@@ -15,5 +15,5 @@
 
 ## 4. External deployment completion
 - [x] 4.1 Obtain administrative access and verify webhook availability (EE 2.45.1; stack webhook created and invoked).
-- [ ] 4.2 Finish GitHub configuration: stack 3, existing registry 1 and webhook are ready; register production secret and enable DEPLOY_ENABLED.
-- [ ] 4.3 Verify GitHub Actions run and matching live revision; archive only after required scope is complete.
+- [x] 4.2 Finish GitHub configuration: stack 3, existing registry 1 and webhook are ready; register production secret and enable DEPLOY_ENABLED.
+- [x] 4.3 Verify GitHub Actions run and matching live revision; archive only after required scope is complete.
