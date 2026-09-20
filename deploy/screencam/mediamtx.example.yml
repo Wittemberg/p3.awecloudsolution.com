@@ -1,0 +1,25 @@
+# Replace both passwords in a private copy before creating the Swarm secret.
+logLevel: error
+rtspTransports: [tcp]
+rtmp: false
+hls: false
+webrtc: false
+srt: false
+api: false
+metrics: false
+playback: false
+authMethod: internal
+authInternalUsers:
+  - user: publisher
+    pass: REPLACE_WITH_DISTINCT_PUBLISHER_SECRET
+    permissions:
+      - action: publish
+        path: p3-synthetic
+  - user: reader
+    pass: REPLACE_WITH_DISTINCT_READER_SECRET
+    permissions:
+      - action: read
+        path: p3-synthetic
+paths:
+  p3-synthetic:
+    source: publisher

@@ -1,0 +1,41 @@
+# Template: provision private routing, overlay and secret before deployment.
+# No published ports: no access from the public Internet or Swarm routing mesh.
+version: '3.8'
+services:
+  mediamtx:
+    image: bluenviron/mediamtx:1.12.3@sha256:3634a1eed1288b93e8d22ed74694eae96d483fcf676cac5d0c91830ad1b86b3d
+    command: /run/secrets/mediamtx.yml
+    user: '10001:10001'
+    read_only: true
+    cap_drop: [ALL]
+    networks: [video_private]
+    secrets:
+      - source: screencam_config
+        target: mediamtx.yml
+        uid: '10001'
+        gid: '10001'
+        mode: 0400
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.labels.p3_screencam == true]
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 128M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      update_config:
+        order: stop-first
+        failure_action: rollback
+      rollback_config:
+        order: stop-first
+networks:
+  video_private:
+    external: true
+    name: p3_video_private
+secrets:
+  screencam_config:
+    external: true
+    name: p3_screencam_config_v1

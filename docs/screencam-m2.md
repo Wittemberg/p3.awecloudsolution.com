@@ -137,7 +137,45 @@ Autenticação interna por caminho e TCP somente; HLS/RTMP/WebRTC/SRT/API deslig
 O laboratório verifica vídeo em movimento (hashes de frames decodificados), acesso
 negado, parada/retomada do servidor RTSP e ausência de credenciais nos logs do
 supervisor. Não demonstra gravação/histórico no NVR, qualidade visual de texto,
-latência ponta a ponta nem estabilidade de longa duração.
+latência de um PDV real nem estabilidade de longa duração.
+
+### Medição sintética
+
+`screencam_metrics.py source` gera frames de teste em cinza com horário codificado em
+48 bits, checksum e células invertidas. O relógio é gerado antes da apresentação por
+ffplay. O receptor decodifica o marcador e mede geração → chegada decodificada no
+mesmo relógio do host; isso inclui apresentação, captura, codificação, transporte,
+decodificação e buffers. Não atribuir esse total apenas ao encoder ou à rede.
+Marcadores corrompidos/ausentes são contados e reprovam o ensaio automático.
+
+CPU: deltas utime+stime de `/proc/PID/stat` por tempo monotônico, normalizados para
+um núcleo (100% = um núcleo). RSS em bytes, com amostragem a cada ~1 segundo.
+PID/starttime precisa ser estável. Não é consumo total do Mint, do Xvfb ou do NVR.
+FPS entregue: número de intervalos entre frames dividido pelo tempo observado.
+Intervalos de chegada medem gaps do receptor, sem provar perda de gravação no NVR.
+Bitrate: bytes dos pacotes de vídeo sobre intervalo de PTS, excluindo último pacote
+e overhead da rede; janela separada de ~3 segundos. Percentil p95 por nearest-rank.
+O ensaio curto serve para verificar instrumentação, não para homologar capacidade.
+
+### Stack Portainer preparada
+
+`deploy/screencam/stack.yml` passou em `docker stack config`. Ainda não implantada:
+exige endpoint/nó aprovado, label `p3_screencam=true`, overlay privada externa
+`p3_video_private`, rota privada até essa overlay e secret `p3_screencam_config_v1`.
+A stack não publica portas, não usa a rede pública do Traefik e não cria VPN.
+Sem uma rota/gateway autorizado, Mint/NVR externos não alcançarão o serviço.
+
+Preparar cópia privada de `mediamtx.example.yml`, substituir senhas distintas e
+criar o secret no endpoint escolhido pelo Portainer (Secrets → Add secret). Não
+colar credenciais no editor de stack ou em variáveis GitHub. Subir o YAML com nome
+exclusivo `p3-screencam` somente depois de verificar a rota privada e o nó de destino.
+Não adicionar `ports:` para contornar ausência de VPN. O usuário do container é
+10001; o secret é montado somente leitura para esse UID. Sem gravação local contínua.
+
+Rollback operacional: parar captura e remover apenas a stack `p3-screencam`; revogar
+credenciais e remover o secret após não haver consumidores. Preservar a stack `p3`
+e demais serviços. Troca de secret exige novo nome versionado; nunca reutilizar um
+secret antigo com conteúdo presumido. O template ainda não qualifica rede/hardware.
 
 ## Roteiro de qualificação real
 

@@ -1,7 +1,7 @@
 {
-  "run_id": "p3-video-lab-82f63814",
+  "run_id": "p3-video-lab-7674123b",
   "environment": "synthetic-xvfb-not-mint-or-nvr",
-  "started_at": "2026-09-20T03:33:07.702404+00:00",
+  "started_at": "2026-09-20T03:36:53.215931+00:00",
   "checks": {
     "preflight": {
       "status": "ready",
@@ -29,9 +29,55 @@
     "unauthorized_publishers": "reader-and-anonymous-denied-401",
     "recovered_video": {
       "decoded_frames": 10,
-      "unique_frames": 9
+      "unique_frames": 10
     },
-    "recovery_s": 4.515
+    "recovery_s": 4.467
+  },
+  "metrics": {
+    "duration_s": 10.212,
+    "decoded_frames": 74,
+    "delivered_fps": 10.000520275594658,
+    "invalid_markers": 0,
+    "unique_markers": 74,
+    "latency_ms": {
+      "count": 74,
+      "mean": 330.404,
+      "p95": 331.965,
+      "max": 341.417
+    },
+    "arrival_gap_ms": {
+      "count": 73,
+      "mean": 99.995,
+      "p95": 101.291,
+      "max": 110.415
+    },
+    "encoder_cpu_percent_one_core": {
+      "count": 9,
+      "mean": 12.851,
+      "p95": 13.97,
+      "max": 13.97
+    },
+    "encoder_rss_bytes": {
+      "count": 10,
+      "mean": 79175680.0,
+      "p95": 79175680,
+      "max": 79175680
+    },
+    "video_payload_bitrate": {
+      "kbit_s": 315.396,
+      "media_span_s": 2.9,
+      "packets": 30,
+      "method": "elementary video payload; last packet excluded; network overhead excluded"
+    },
+    "latency_method": "synthetic timestamp generation to decoded arrival; same host wall clock",
+    "latency_includes": [
+      "source presentation",
+      "capture",
+      "encode",
+      "transport",
+      "decode",
+      "buffering"
+    ]
   },
   "versions": {
     "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
@@ -41,7 +87,8 @@
   "limitations": [
     "synthetic Xvfb, not Linux Mint",
     "no NVR recording or history",
-    "recovery is time to decode 10 frames after server start, not video latency",
-    "no CPU/RAM/bitrate benchmark yet"
+    "short instrumentation validation; not a capacity benchmark",
+    "latency includes synthetic source presentation and buffering",
+    "encoder CPU/RSS only; not whole workstation consumption"
   ]
 }

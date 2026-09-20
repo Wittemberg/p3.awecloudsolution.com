@@ -15,8 +15,8 @@
 
 - [x] 3.1 Criar ambiente Docker isolado com MediaMTX autenticado por caminho, sem porta pública; verificar publicação/leitura autorizadas e rejeição de acesso indevido. Evidência: matriz HTTP/RTSP 401 no ensaio p3-video-lab-82f63814.
 - [x] 3.2 Exercitar fonte sintética X11, decodificação, interrupções e retomada; registrar tempos e evidências de frames sem atribuir resultado ao NVR. Evidência: dois ensaios aprovados, p3-video-lab-b68a0697 e p3-video-lab-82f63814; campanha Mint/NVR com três interrupções permanece em 4.2.
-- [ ] 3.3 Implementar coleta e relatório de CPU/RAM/FPS/bitrate/latência/gaps; verificar amostras e unidades com ensaio reproduzível.
-- [ ] 3.4 Preparar stack de PoC compatível com Portainer, configuração privada e reversão; validar sintaxe e só implantar após definir endpoint/rede.
+- [x] 3.3 Implementar coleta e relatório de CPU/RAM/FPS/bitrate/latência/gaps; verificar amostras e unidades com ensaio reproduzível. Evidência: p3-video-lab-7674123b, marcador visual validado, amostras CPU/RSS e pacotes RTSP; docs/screencam-lab-evidence.json. Ensaio curto, não benchmark de Mint.
+- [x] 3.4 Preparar stack de PoC compatível com Portainer, configuração privada e reversão; validar sintaxe e só implantar após definir endpoint/rede. Evidência: stack.yml aprovado por docker stack config, secret e rollback no runbook. Implantação permanece condicionada a 4.1.
 
 ## 4. Qualificação real
 

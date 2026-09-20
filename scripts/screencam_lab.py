@@ -77,8 +77,10 @@ def run():
             time.sleep(0.2)
         else:
             raise RuntimeError("x11 did not become ready")
-        docker("exec", "-d", lab, "ffplay", "-loglevel", "error", "-f", "lavfi", "-i",
-               "testsrc2=size=1280x720:rate=10", "-an", "-autoexit", "-noborder")
+        docker("exec", "-d", lab, "sh", "-c",
+               "python scripts/screencam_metrics.py source | ffplay -loglevel error "
+               "-f rawvideo -pixel_format gray -video_size 1280x720 -framerate 10 "
+               "-i pipe:0 -an -autoexit -noborder -left 0 -top 0")
         stage = "preflight"
         report["checks"]["preflight"] = json.loads(docker(
             "exec", lab, "python", "scripts/screencam_config.py", "/tmp/config.json").stdout)
@@ -104,6 +106,18 @@ def run():
             raise RuntimeError("no changing decoded video")
 
         report["checks"]["initial_video"] = wait_video()
+        stage = "metrics"
+        initial_events = [json.loads(line) for line in docker("exec", lab, "cat", "/tmp/capture.log").stdout.splitlines()]
+        capture_pid = [event['pid'] for event in initial_events if event['event'] == 'starting'][-1]
+        read_config = {**config, "username": "reader", "password": reader}
+        docker("exec", "-i", lab, "python", "-c",
+               "import sys,os; os.umask(0o077); open('/tmp/reader.json','w').write(sys.stdin.read())",
+               input=json.dumps(read_config))
+        report["metrics"] = json.loads(docker("exec", lab, "python", "scripts/screencam_metrics.py",
+                                             "measure", "--config", "/tmp/reader.json",
+                                             "--pid", str(capture_pid), timeout=25).stdout)
+        if report['metrics']['latency_ms']['count'] < 10 or report['metrics']['invalid_markers']:
+            raise RuntimeError('visual timestamp measurement was not valid')
         stage = "authorization"
         for label, kwargs in (("wrong_password", {"password": "wrong"}),
                               ("anonymous_reader", {"username": "", "password": ""}),
