@@ -1,6 +1,6 @@
 # Estado atual — P3
 
-M0 e M1 concluídos. Mudança ativa: `m2-screencam-poc` (implementação; 8/16 tarefas).
+M0 e M1 concluídos. Mudança ativa: `m2-screencam-poc` (10/16 tarefas; aguardando hardware/acesso).
 Histórico: `openspec/changes/archive/`; requisitos em `openspec/specs/`.
 Marco em andamento: M2 — PoC ScreenCam em Linux Mint e NVR reais.
 
@@ -59,12 +59,15 @@ Template de stack privada com secret validado, sem implantação enquanto rede/e
 não forem definidos. Próximo: ensaio de serviço no Mint e qualificação real.
 Commit parcial 3c07b01 enviado; run 35486910033 test/publish/deploy SUCCESS e revisão
 3c07b01bdc5f1f2955ecfb0dec73d89e4e99fdd6 confirmada no health HTTPS.
-Coletor/stack posteriores a esse commit ainda locais, aguardando sincronização.
+Coletor/stack enviados em acab67b; run 35487103922 test/publish/deploy SUCCESS.
+Revisão acab67b212e996b498d53bab450393239faaf71b verificada no health HTTPS.
+Atualização documental posterior usa skip ci; não muda a imagem publicada.
 O kit M2 não foi ativado na máquina real e não conclui a qualificação NVR.
 
 O usuário ainda preparará o Linux Mint (versão, X11/Wayland, CPU/RAM a confirmar).
 NVR disponível: AITEK SIGMA-N210, firmware a confirmar; ambos dependem de VPN para
-acesso remoto. VPN ainda não instalada/configurada. Kit e laboratório podem avançar.
+acesso remoto. VPN ainda não instalada/configurada. Kit e laboratório entregues;
+próxima etapa exige Mint preparado, endpoint/rede privada e acesso autorizado ao NVR.
 Tarefas canônicas em `openspec/changes/m2-screencam-poc/tasks.md`. Validar captura,
 consumo, reconexão e recuperação histórica com dados sintéticos e política de acesso.
 Não iniciar coleta de clientes antes de retenção e permissões definidas.

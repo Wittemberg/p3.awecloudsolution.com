@@ -27,9 +27,11 @@
 
 ## 5. Entrega
 
-- [ ] 5.1 Executar testes/lint/build e OpenSpec strict; revisar regressões dos contratos M1.
-- [ ] 5.2 Consolidar evidências, atualizar estado/roadmap, fazer commit/push e verificar CI aplicável.
+- [x] 5.1 Executar testes/lint/build e OpenSpec strict; revisar regressões dos contratos M1. Evidência: 140 testes, Ruff e artifact drift aprovados; OpenSpec strict 3/3. Diff desde 734d671 sem alteração em app/contrato M1 ou seu oráculo/testes.
+- [x] 5.2 Consolidar evidências, atualizar estado/roadmap, fazer commit/push e verificar CI aplicável. Evidência: commits 3c07b01/acab67b enviados, runs 35486910033/35487103922 com test/publish/deploy SUCCESS. Evidências de hardware continuam pendentes em 4.x; esta entrega cobre o kit/laboratório.
 - [ ] 5.3 Somente após qualificação real, sincronizar specs e arquivar M2; verificar ausência de tarefas pendentes e preservar cenários consolidados.
 
-Bloqueio externo de 4.x: Mint ainda será preparado; firmware e acesso ao NVR dependem
-do usuário e da VPN. As tarefas 1–3 podem avançar com laboratório local.
+Bloqueio externo de 2.3/4.x: Mint ainda será preparado; firmware e acesso ao NVR
+dependem do usuário e da VPN. Kit/laboratório local concluídos; serviço validado
+sintaticamente, mas restart e sessão gráfica reais aguardam a máquina.
+Não arquivar M2 nem marcar a qualificação real concluída com evidências sintéticas.

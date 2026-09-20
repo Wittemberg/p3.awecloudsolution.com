@@ -7,7 +7,7 @@ na mudança OpenSpec ativa. Não iniciar a seguinte até concluir ou delimitar a
 |---|---|---|
 | M0 — Fundação | bootstrap-platform, documentos, Git, CI e preparação deploy | testes locais; specs válidas; pendências externas explícitas |
 | M1 — Contrato e identidade | protocolo 0.1.0, 14 tipos, OpenAPI/Schema, política de credencial e conformidade sintética | Concluído: 83 testes, OpenSpec e CI/deploy aprovados; contratos públicos verificados |
-| M2 — Prova ScreenCam | Linux Mint real, FFmpeg/MediaMTX candidatos e NVR | gravação, reconexão, busca histórica, CPU/RAM/latência medidos |
+| M2 — Prova ScreenCam | Kit e laboratório Docker verificados; Mint a preparar, AITEK SIGMA-N210 e VPN pendentes | Em andamento: 140 testes e métricas sintéticas; gate real de gravação, reconexão e busca histórica ainda aberto |
 | M3 — Núcleo durável | ingestão, outbox, replay e telemetria separada | NFR01–03 com restart e indisponibilidade |
 | M4 — Timeline e vídeo | M2/M3, mapeamento temporal e clips | janela correta, drift e ausência visíveis em UAT |
 | M5 — Regras e ocorrências | fatores/versionamento, workflow, feedback | auditor reconstrói regra e conclui caso com trilha |
