@@ -6,5 +6,9 @@
 - [x] 2.2 Serve versioned read-only documents; test route responses and continued absence of ingestion.
 - [x] 2.3 Pin validation dependencies and run lint, artifact drift and complete Docker test suite.
 ## 3. Delivery
-- [ ] 3.1 Validate OpenSpec strictly and publish commit; verify Actions test/publish/deploy and live revision/contracts.
-- [ ] 3.2 Record evidence/limits, update roadmap/state and archive with consolidated spec validation.
+- [x] 3.1 Validate OpenSpec strictly and publish commit; verify Actions test/publish/deploy and live revision/contracts.
+- [x] 3.2 Record evidence/limits, update roadmap/state and archive with consolidated spec validation.
+
+Evidência: 83 testes, Ruff, artifact drift e OpenSpec strict aprovados.
+Run 35484533521: test/publish/deploy SUCCESS; revisão pública e quatro contratos
+comparados por igualdade JSON com os artefatos versionados via TLS válido.
