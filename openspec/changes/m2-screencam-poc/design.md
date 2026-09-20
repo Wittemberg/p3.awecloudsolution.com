@@ -4,7 +4,8 @@
 
 Ver proposal.md. M1 está publicado; o servidor Ubuntu não é o Mint do teste.
 O usuário ainda preparará esse equipamento. NVR informado: AITEK SIGMA-N210;
-firmware a confirmar e acesso dependente de VPN ainda não configurada.
+firmware identificado em fotografia (inventário em docs/screencam-m2.md), com
+reconferência no acesso pendente. Acesso depende de VPN ainda não configurada.
 Recursos do servidor são compartilhados (4 GiB RAM); não armazenar vídeo contínuo ali.
 
 ## Goals / Non-Goals
@@ -45,7 +46,8 @@ que MediaMTX transforma RTSP em câmera ONVIF. Windows e Wayland exigem outra ca
 
 ## Risks / Trade-offs
 
-- [Capacidades do SIGMA-N210 não verificadas] → registrar firmware e consultar documentação antes
+- [Capacidades do SIGMA-N210 não verificadas; etiqueta indica H.265] → verificar
+  aceitação H.264 e reconferir firmware fotografado antes
   de escolher adapter; teste de RTSP manual separado de descoberta.
 - [Tela sensível] → conteúdo exclusivamente sintético; região não é mascaramento
   dinâmico. Nenhuma autorização para capturar dados reais nesta PoC.

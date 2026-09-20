@@ -65,7 +65,10 @@ Atualização documental posterior usa skip ci; não muda a imagem publicada.
 O kit M2 não foi ativado na máquina real e não conclui a qualificação NVR.
 
 O usuário ainda preparará o Linux Mint (versão, X11/Wayland, CPU/RAM a confirmar).
-NVR disponível: AITEK SIGMA-N210, firmware a confirmar; ambos dependem de VPN para
+NVR disponível: AITEK SIGMA-N210, 10 canais e H.265 na etiqueta. Firmware fotografado
+V4.03.R11.C6380251.12201.040000.0000000, construção 2025-09-19 14:45:17; detalhes e
+limites em docs/screencam-m2.md. H.264/RTSP/ONVIF/histórico ainda não qualificados.
+Mint e NVR dependem de VPN para
 acesso remoto. VPN ainda não instalada/configurada. Kit e laboratório entregues;
 próxima etapa exige Mint preparado, endpoint/rede privada e acesso autorizado ao NVR.
 Tarefas canônicas em `openspec/changes/m2-screencam-poc/tasks.md`. Validar captura,

@@ -9,8 +9,12 @@ Estado: implementação em andamento, sem qualificação real. Tarefas canônica
 |---|---|
 | Captura | Linux Mint ainda será preparado pelo usuário |
 | SO, sessão, CPU/RAM, resolução | A confirmar na máquina; primeira PoC exige X11 |
-| NVR | AITEK SIGMA-N210 informado pelo usuário |
-| Firmware, canal livre, disco, relógio | A confirmar no equipamento |
+| NVR | AiTek SIGMA-N210 confirmado pela etiqueta fotografada; entrada 10CH |
+| Firmware fotografado | `V4.03.R11.C6380251.12201.040000.0000000` |
+| Construção exibida | `2025-09-19 14:45:17` |
+| Compressão na etiqueta | H.265; aceitação de H.264 ainda não verificada |
+| Alimentação na etiqueta | DC 12 V, 3 A |
+| Canal livre, disco, relógio e rede local | A confirmar no equipamento |
 | Acesso | VPN a configurar; endereços/usuários ainda não fornecidos |
 | Credenciais | Não recebidas para Mint/NVR; guardar fora do Git |
 | Servidor P3 | Ubuntu compartilhado; não equivale ao Mint do teste |
@@ -19,6 +23,21 @@ Consulta ao [fabricante](https://aitekbrasil.com/) e à
 [linha Sigma](https://aitekbrasil.com/linha-sigma/) em 2026-09-20 não localizou
 documentação suficiente do SIGMA-N210. Não inferir protocolos, URLs de playback
 ou credenciais padrão a partir de modelos parecidos.
+
+Evidências locais fornecidas pelo usuário e conferidas visualmente: `/root/nvr-aitek-foto-1.jpg`
+(tela Versão), `/root/nvr-aitek-foto-2.jpg` (etiqueta) e `/root/nvr-aitek.txt`
+(transcrição coerente com as fotos). A tela também indica 10 canais de gravação.
+São observações fotográficas, sem consulta remota ao equipamento. MAC, número de
+série, QR code e código NAT permanecem nos originais locais e não são versionados.
+O estado NAT conectado corresponde ao instante da foto, sem comprovar rota privada
+ou disponibilidade atual. Os arquivos não fornecem IP LAN, portas ou credenciais.
+
+Consequência para M2: testar primeiro se o canal aceita a fonte H.264/RTSP do kit.
+A inscrição H.265 não comprova nem exclui H.264. Se houver rejeição, identificar
+codec/perfil e modo de cadastro suportados antes de propor mudança do encoder;
+não tratar falha de codec como falha da VPN. RTSP, ONVIF, descoberta e recuperação
+histórica permanecem sem comprovação. A versão fotografada será reconferida no acesso,
+sem propor atualização de firmware com base apenas no identificador.
 
 ## Topologia proposta
 

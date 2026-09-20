@@ -31,7 +31,8 @@
 - [x] 5.2 Consolidar evidências, atualizar estado/roadmap, fazer commit/push e verificar CI aplicável. Evidência: commits 3c07b01/acab67b enviados, runs 35486910033/35487103922 com test/publish/deploy SUCCESS. Evidências de hardware continuam pendentes em 4.x; esta entrega cobre o kit/laboratório.
 - [ ] 5.3 Somente após qualificação real, sincronizar specs e arquivar M2; verificar ausência de tarefas pendentes e preservar cenários consolidados.
 
-Bloqueio externo de 2.3/4.x: Mint ainda será preparado; firmware e acesso ao NVR
-dependem do usuário e da VPN. Kit/laboratório local concluídos; serviço validado
+Bloqueio externo de 2.3/4.x: Mint ainda será preparado; acesso ao NVR depende do
+usuário e da VPN. Firmware identificado nas fotos fornecidas, com reconferência
+pendente no equipamento; inventário em docs/screencam-m2.md. Kit/laboratório local concluídos; serviço validado
 sintaticamente, mas restart e sessão gráfica reais aguardam a máquina.
 Não arquivar M2 nem marcar a qualificação real concluída com evidências sintéticas.
