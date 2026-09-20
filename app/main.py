@@ -29,3 +29,17 @@ def hello():
 @app.get("/api/health")
 def health():
     return {"status": "ok", "stage": "bootstrap", "revision": os.getenv("APP_REVISION", "local")}
+
+
+@app.get('/api/contracts/0.1.0/{document}')
+def contract_document(document: str):
+    """Read-only artifacts; ingestion remains unimplemented."""
+    import json
+    from pathlib import Path
+    from fastapi import HTTPException
+
+    allowed = {'event.schema.json', 'openapi.json', 'catalog.json', 'examples.json'}
+    if document not in allowed:
+        raise HTTPException(status_code=404, detail='Contract document not found')
+    path = Path(__file__).parent / 'contracts' / 'v0_1_0' / document
+    return json.loads(path.read_text())

@@ -1,0 +1,143 @@
+{
+  "schema_version": "0.1.0",
+  "status": "M1 contract; runtime ingestion not implemented",
+  "events": [
+    {
+      "event_type": "cash_session.opened",
+      "required_payload_fields": [
+        "operator_id",
+        "opening_amount",
+        "currency"
+      ],
+      "transaction_required": false
+    },
+    {
+      "event_type": "cash_session.closed",
+      "required_payload_fields": [
+        "operator_id",
+        "reported_amount",
+        "currency"
+      ],
+      "transaction_required": false
+    },
+    {
+      "event_type": "cash.supplied",
+      "required_payload_fields": [
+        "movement_id",
+        "operator_id",
+        "amount",
+        "currency"
+      ],
+      "transaction_required": false
+    },
+    {
+      "event_type": "cash.withdrawn",
+      "required_payload_fields": [
+        "movement_id",
+        "operator_id",
+        "amount",
+        "currency"
+      ],
+      "transaction_required": false
+    },
+    {
+      "event_type": "cash.drawer_opened",
+      "required_payload_fields": [
+        "operator_id",
+        "reason"
+      ],
+      "transaction_required": false
+    },
+    {
+      "event_type": "transaction.started",
+      "required_payload_fields": [
+        "operator_id",
+        "transaction_type"
+      ],
+      "transaction_required": true
+    },
+    {
+      "event_type": "transaction.subtotal_requested",
+      "required_payload_fields": [
+        "amount",
+        "currency"
+      ],
+      "transaction_required": true
+    },
+    {
+      "event_type": "transaction.completed",
+      "required_payload_fields": [
+        "net_total",
+        "currency",
+        "item_count",
+        "payment_count"
+      ],
+      "transaction_required": true
+    },
+    {
+      "event_type": "transaction.cancelled_before_completion",
+      "required_payload_fields": [
+        "reason_code",
+        "operator_id"
+      ],
+      "transaction_required": true
+    },
+    {
+      "event_type": "transaction.voided_after_completion",
+      "required_payload_fields": [
+        "reason_code",
+        "operator_id",
+        "authorization_id",
+        "authorized_by"
+      ],
+      "transaction_required": true
+    },
+    {
+      "event_type": "item.added",
+      "required_payload_fields": [
+        "line_id",
+        "sku",
+        "quantity",
+        "unit",
+        "unit_price",
+        "total",
+        "currency",
+        "capture_method",
+        "weighed_in_store"
+      ],
+      "transaction_required": true
+    },
+    {
+      "event_type": "item.cancelled",
+      "required_payload_fields": [
+        "line_id",
+        "sku",
+        "quantity",
+        "unit",
+        "total",
+        "currency",
+        "reason_code",
+        "operator_id"
+      ],
+      "transaction_required": true
+    },
+    {
+      "event_type": "payment.registered",
+      "required_payload_fields": [
+        "payment_id",
+        "method",
+        "amount",
+        "currency"
+      ],
+      "transaction_required": true
+    },
+    {
+      "event_type": "change.registered",
+      "required_payload_fields": [
+        "amount",
+        "currency"
+      ],
+      "transaction_required": true
+    }
+  ]
+}

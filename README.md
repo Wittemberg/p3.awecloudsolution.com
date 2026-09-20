@@ -35,3 +35,10 @@ Baseline corporativa: `.harness/standards/wittemberg/README.md`.
 Base Python/FastAPI mínima própria: o boilerplate foi avaliado, mas não copiado,
 pois traz LangChain/agente prematuro e licença não declarada. Hermes é etapa futura.
 OpenSpec guarda requisitos/tarefas da mudança; PRD guarda visão global.
+
+## Contratos M1
+
+[Event Protocol 0.1.0](docs/contracts/event-protocol-0.1.0.md) e
+[identidade de integração](docs/contracts/integration-identity.md).
+Contratos públicos em `/api/contracts/0.1.0/event.schema.json` e
+`/api/contracts/0.1.0/openapi.json`. A ingestão persistente continua no M3.

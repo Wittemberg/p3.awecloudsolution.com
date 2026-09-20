@@ -1,0 +1,288 @@
+[
+  {
+    "schema_version": "0.1.0",
+    "event_id": "00000000-0000-4000-8000-000000000001",
+    "event_type": "cash_session.opened",
+    "occurred_at": "2026-09-19T12:00:00.000Z",
+    "tenant_id": "tenant-a",
+    "organization_id": "org-a",
+    "store_id": "store-1",
+    "terminal_id": "pos-1",
+    "source_id": "source-1",
+    "source_session_id": "00000000-0000-4000-8000-000000000100",
+    "source_sequence": 1,
+    "session_id": "session-1",
+    "payload": {
+      "operator_id": "synthetic-operator_id",
+      "opening_amount": "10.00",
+      "currency": "BRL"
+    }
+  },
+  {
+    "schema_version": "0.1.0",
+    "event_id": "00000000-0000-4000-8000-000000000002",
+    "event_type": "cash_session.closed",
+    "occurred_at": "2026-09-19T12:00:00.000Z",
+    "tenant_id": "tenant-a",
+    "organization_id": "org-a",
+    "store_id": "store-1",
+    "terminal_id": "pos-1",
+    "source_id": "source-1",
+    "source_session_id": "00000000-0000-4000-8000-000000000100",
+    "source_sequence": 2,
+    "session_id": "session-1",
+    "payload": {
+      "operator_id": "synthetic-operator_id",
+      "reported_amount": "10.00",
+      "currency": "BRL"
+    }
+  },
+  {
+    "schema_version": "0.1.0",
+    "event_id": "00000000-0000-4000-8000-000000000003",
+    "event_type": "cash.supplied",
+    "occurred_at": "2026-09-19T12:00:00.000Z",
+    "tenant_id": "tenant-a",
+    "organization_id": "org-a",
+    "store_id": "store-1",
+    "terminal_id": "pos-1",
+    "source_id": "source-1",
+    "source_session_id": "00000000-0000-4000-8000-000000000100",
+    "source_sequence": 3,
+    "session_id": "session-1",
+    "payload": {
+      "movement_id": "synthetic-movement_id",
+      "operator_id": "synthetic-operator_id",
+      "amount": "10.00",
+      "currency": "BRL"
+    }
+  },
+  {
+    "schema_version": "0.1.0",
+    "event_id": "00000000-0000-4000-8000-000000000004",
+    "event_type": "cash.withdrawn",
+    "occurred_at": "2026-09-19T12:00:00.000Z",
+    "tenant_id": "tenant-a",
+    "organization_id": "org-a",
+    "store_id": "store-1",
+    "terminal_id": "pos-1",
+    "source_id": "source-1",
+    "source_session_id": "00000000-0000-4000-8000-000000000100",
+    "source_sequence": 4,
+    "session_id": "session-1",
+    "payload": {
+      "movement_id": "synthetic-movement_id",
+      "operator_id": "synthetic-operator_id",
+      "amount": "10.00",
+      "currency": "BRL"
+    }
+  },
+  {
+    "schema_version": "0.1.0",
+    "event_id": "00000000-0000-4000-8000-000000000005",
+    "event_type": "cash.drawer_opened",
+    "occurred_at": "2026-09-19T12:00:00.000Z",
+    "tenant_id": "tenant-a",
+    "organization_id": "org-a",
+    "store_id": "store-1",
+    "terminal_id": "pos-1",
+    "source_id": "source-1",
+    "source_session_id": "00000000-0000-4000-8000-000000000100",
+    "source_sequence": 5,
+    "session_id": "session-1",
+    "payload": {
+      "operator_id": "synthetic-operator_id",
+      "reason": "PAYMENT"
+    }
+  },
+  {
+    "schema_version": "0.1.0",
+    "event_id": "00000000-0000-4000-8000-000000000006",
+    "event_type": "transaction.started",
+    "occurred_at": "2026-09-19T12:00:00.000Z",
+    "tenant_id": "tenant-a",
+    "organization_id": "org-a",
+    "store_id": "store-1",
+    "terminal_id": "pos-1",
+    "source_id": "source-1",
+    "source_session_id": "00000000-0000-4000-8000-000000000100",
+    "source_sequence": 6,
+    "session_id": "session-1",
+    "payload": {
+      "operator_id": "synthetic-operator_id",
+      "transaction_type": "SALE"
+    },
+    "transaction_id": "transaction-1"
+  },
+  {
+    "schema_version": "0.1.0",
+    "event_id": "00000000-0000-4000-8000-000000000007",
+    "event_type": "transaction.subtotal_requested",
+    "occurred_at": "2026-09-19T12:00:00.000Z",
+    "tenant_id": "tenant-a",
+    "organization_id": "org-a",
+    "store_id": "store-1",
+    "terminal_id": "pos-1",
+    "source_id": "source-1",
+    "source_session_id": "00000000-0000-4000-8000-000000000100",
+    "source_sequence": 7,
+    "session_id": "session-1",
+    "payload": {
+      "amount": "10.00",
+      "currency": "BRL"
+    },
+    "transaction_id": "transaction-1"
+  },
+  {
+    "schema_version": "0.1.0",
+    "event_id": "00000000-0000-4000-8000-000000000008",
+    "event_type": "transaction.completed",
+    "occurred_at": "2026-09-19T12:00:00.000Z",
+    "tenant_id": "tenant-a",
+    "organization_id": "org-a",
+    "store_id": "store-1",
+    "terminal_id": "pos-1",
+    "source_id": "source-1",
+    "source_session_id": "00000000-0000-4000-8000-000000000100",
+    "source_sequence": 8,
+    "session_id": "session-1",
+    "payload": {
+      "net_total": "10.00",
+      "currency": "BRL",
+      "item_count": 1,
+      "payment_count": 1
+    },
+    "transaction_id": "transaction-1"
+  },
+  {
+    "schema_version": "0.1.0",
+    "event_id": "00000000-0000-4000-8000-000000000009",
+    "event_type": "transaction.cancelled_before_completion",
+    "occurred_at": "2026-09-19T12:00:00.000Z",
+    "tenant_id": "tenant-a",
+    "organization_id": "org-a",
+    "store_id": "store-1",
+    "terminal_id": "pos-1",
+    "source_id": "source-1",
+    "source_session_id": "00000000-0000-4000-8000-000000000100",
+    "source_sequence": 9,
+    "session_id": "session-1",
+    "payload": {
+      "reason_code": "CUSTOMER_REQUEST",
+      "operator_id": "synthetic-operator_id"
+    },
+    "transaction_id": "transaction-1"
+  },
+  {
+    "schema_version": "0.1.0",
+    "event_id": "00000000-0000-4000-8000-00000000000a",
+    "event_type": "transaction.voided_after_completion",
+    "occurred_at": "2026-09-19T12:00:00.000Z",
+    "tenant_id": "tenant-a",
+    "organization_id": "org-a",
+    "store_id": "store-1",
+    "terminal_id": "pos-1",
+    "source_id": "source-1",
+    "source_session_id": "00000000-0000-4000-8000-000000000100",
+    "source_sequence": 10,
+    "session_id": "session-1",
+    "payload": {
+      "reason_code": "CUSTOMER_REQUEST",
+      "operator_id": "synthetic-operator_id",
+      "authorization_id": "synthetic-authorization_id",
+      "authorized_by": "synthetic-authorized_by"
+    },
+    "transaction_id": "transaction-1"
+  },
+  {
+    "schema_version": "0.1.0",
+    "event_id": "00000000-0000-4000-8000-00000000000b",
+    "event_type": "item.added",
+    "occurred_at": "2026-09-19T12:00:00.000Z",
+    "tenant_id": "tenant-a",
+    "organization_id": "org-a",
+    "store_id": "store-1",
+    "terminal_id": "pos-1",
+    "source_id": "source-1",
+    "source_session_id": "00000000-0000-4000-8000-000000000100",
+    "source_sequence": 11,
+    "session_id": "session-1",
+    "payload": {
+      "line_id": "synthetic-line_id",
+      "sku": "synthetic-sku",
+      "quantity": "1.000",
+      "unit": "UN",
+      "unit_price": "10.00",
+      "total": "10.00",
+      "currency": "BRL",
+      "capture_method": "BARCODE_SCAN",
+      "weighed_in_store": false
+    },
+    "transaction_id": "transaction-1"
+  },
+  {
+    "schema_version": "0.1.0",
+    "event_id": "00000000-0000-4000-8000-00000000000c",
+    "event_type": "item.cancelled",
+    "occurred_at": "2026-09-19T12:00:00.000Z",
+    "tenant_id": "tenant-a",
+    "organization_id": "org-a",
+    "store_id": "store-1",
+    "terminal_id": "pos-1",
+    "source_id": "source-1",
+    "source_session_id": "00000000-0000-4000-8000-000000000100",
+    "source_sequence": 12,
+    "session_id": "session-1",
+    "payload": {
+      "line_id": "synthetic-line_id",
+      "sku": "synthetic-sku",
+      "quantity": "1.000",
+      "unit": "UN",
+      "total": "10.00",
+      "currency": "BRL",
+      "reason_code": "CUSTOMER_REQUEST",
+      "operator_id": "synthetic-operator_id"
+    },
+    "transaction_id": "transaction-1"
+  },
+  {
+    "schema_version": "0.1.0",
+    "event_id": "00000000-0000-4000-8000-00000000000d",
+    "event_type": "payment.registered",
+    "occurred_at": "2026-09-19T12:00:00.000Z",
+    "tenant_id": "tenant-a",
+    "organization_id": "org-a",
+    "store_id": "store-1",
+    "terminal_id": "pos-1",
+    "source_id": "source-1",
+    "source_session_id": "00000000-0000-4000-8000-000000000100",
+    "source_sequence": 13,
+    "session_id": "session-1",
+    "payload": {
+      "payment_id": "synthetic-payment_id",
+      "method": "CASH",
+      "amount": "10.00",
+      "currency": "BRL"
+    },
+    "transaction_id": "transaction-1"
+  },
+  {
+    "schema_version": "0.1.0",
+    "event_id": "00000000-0000-4000-8000-00000000000e",
+    "event_type": "change.registered",
+    "occurred_at": "2026-09-19T12:00:00.000Z",
+    "tenant_id": "tenant-a",
+    "organization_id": "org-a",
+    "store_id": "store-1",
+    "terminal_id": "pos-1",
+    "source_id": "source-1",
+    "source_session_id": "00000000-0000-4000-8000-000000000100",
+    "source_sequence": 14,
+    "session_id": "session-1",
+    "payload": {
+      "amount": "10.00",
+      "currency": "BRL"
+    },
+    "transaction_id": "transaction-1"
+  }
+]

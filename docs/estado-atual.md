@@ -1,44 +1,34 @@
 # Estado atual — P3
 
-Bootstrap concluído; aguardando início da próxima mudança do roadmap.
-Histórico e tarefas: [bootstrap-platform](../openspec/changes/archive/2026-09-20-bootstrap-platform/tasks.md).
-Requisitos entregues: `openspec/specs/platform-bootstrap/spec.md`.
+Mudança ativa: [m1-event-contract](../openspec/changes/m1-event-contract/tasks.md).
+M0 arquivado; infraestrutura e deploy automático funcionais.
 
-## Entrega
+## M1 entregue localmente
 
-Harness portátil revisão `9dbc93d105de52d855f7e0cdd4671aa97c3c8352`.
-Brainstorm original preservado, revisão v0.3, PRD, TRD, cinco ADRs, viabilidade,
-roadmap, inventário e runbook versionados. Aplicação é bootstrap operacional;
-funcionalidades de negócio ainda não implementadas.
+Event Protocol 0.1.0, catálogo de 14 tipos, JSON Schema Draft 2020-12, OpenAPI 3.1 e
+exemplos sintéticos. [Protocolo](contracts/event-protocol-0.1.0.md),
+[identidade](contracts/integration-identity.md), [ADR-006](adrs/006-contrato-m1.md).
+Rotas somente leitura em /api/contracts/0.1.0/{document}.
+Oráculo de conformidade em scripts/event_conformance.py; não é backend produtivo.
+POST de ingestão continua 404; persistência, outbox e credenciais reais pertencem ao M3.
 
-## Infraestrutura e automação validadas
+## Evidências
 
-Portainer EE 2.45.1; stack p3 ID 3 no ambiente primary ID 1; registry GHCR ID 1
-existente reutilizado. Webhook de stack habilitado. Secret GitHub
-PORTAINER_STACK_WEBHOOK cadastrado no environment production; variável de repositório
-DEPLOY_ENABLED=true. Credencial GitHub atual possui administração; HTTP 403 anterior resolvido.
+83 testes locais passaram, incluindo schema/OpenAPI, 14 tipos, erros, isolamento,
+rotação/revogação, replay, conflito e regressão HTTP/deploy. Ruff e drift de artefatos
+passaram. Transitivas fixadas em constraints.txt. Warning Starlette/AnyIO conhecido.
+Validação final OpenSpec, CI/deploy e revisão pública M1 ainda em execução.
 
-[Run 35483369209](https://github.com/Wittemberg/p3.awecloudsolution.com/actions/runs/35483369209):
-test SUCCESS, publish SUCCESS, deploy SUCCESS. Disparado por workflow_dispatch em main.
-O mesmo workflow está configurado para push em main.
+## Infraestrutura preservada
 
-Revisão pública comprovada: `4fe6648e860f5459dcadfda8f9c1d3958dc5e1bb`.
-Imagem `ghcr.io/wittemberg/p3.awecloudsolution.com:sha-4fe6648e860f5459dcadfda8f9c1d3958dc5e1bb`.
-Digest `sha256:4821119f2d22f8da9cbeff4a204b48aaa71da69293882ae9deb18c3808e2b326`.
-HTTPS sem ignorar certificado: https://p3.awecloudsolution.com/api/health retornou
-status ok e revisão exata. Swarm executou nova tarefa e encerrou a anterior.
+Portainer EE 2.45.1; stack p3 ID 3, primary ID 1, registry GHCR ID 1. Webhook e
+GitHub production/PORTAINER_STACK_WEBHOOK configurados, DEPLOY_ENABLED=true.
+Tokens fora do Git; URL secreta em .local/portainer-stack-webhook (600).
+Baseline M0 implantada: revisão 4fe6648, run 35483369209.
+Nenhuma alteração em PostgreSQL ou credenciais de clientes. Sem UAT/carga/hardware.
 
-## Evidências e limites
+## Continuação
 
-7 testes de aplicação/deploy passaram; Compose/Swarm config e OpenSpec strict válidos.
-Harness: 1719 arquivos fixados, zero erros, 10 testes passaram. Imagem base fixada por
-digest, transitivas em constraints.txt. Um DeprecationWarning Starlette/AnyIO conhecido.
-
-URL secreta em `.local/portainer-stack-webhook`, permissão 600, diretório 700 e ignorado
-pelo Git. Tokens administrativos não copiados ao projeto ou logs. PostgreSQL e demais
-stacks preservados. Container de desenvolvimento permanece em 127.0.0.1:18003.
-
-Sem UAT, validação visual em navegador, carga, hardware/NVR ou auditoria integral de
-segurança do produto. Não confundir bootstrap disponível com plataforma comercial pronta.
-Próxima mudança: M1 do roadmap — contratos de eventos, identidade e isolamento.
-Documentação de encerramento usa skip ci; SHA documental pode superar a revisão em produção.
+Concluir tarefas de entrega M1 e arquivar somente com evidência remota.
+Depois M2: ScreenCam em Linux Mint e NVR reais; é necessário identificar equipamento
+e disponibilidade. Não iniciar coleta real sem política de acesso e retenção.

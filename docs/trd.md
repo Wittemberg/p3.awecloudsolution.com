@@ -83,7 +83,7 @@ Baseline corporativa: `.harness/standards/wittemberg/README.md` e engineering/
 SECURITY-BASELINE, persistência e não-regressão aplicáveis conforme arquivos do snapshot.
 Testes: pytest; `docker build --target test -t p3-test .`. Cobertura percentual ainda
 não contratada; comportamentos críticos exigem cenários positivos/negativos e restart.
-Estilo: PEP 8, snake_case; linter/formatter automatizado pendente antes da próxima fatia.
+Estilo: PEP 8, snake_case; Ruff fixado no ambiente de desenvolvimento, verificado no build de testes; formatação ampla não aplicada ao legado.
 Erros de domínio explícitos; resposta sem stack trace; falhas operacionais com responsável
 identificável. Logs de bootstrap são os do Uvicorn; JSON/correlação são requisitos futuros.
 
@@ -106,3 +106,8 @@ visual após aprovação; página inicial atual é indicador de preparação.
 | [003](adrs/003-eventos.md) | Tempo, identidade e durabilidade | proposto | 2026-09-19 |
 | [004](adrs/004-ia.md) | Hermes desacoplado via MCP | aceito conforme v0.2 | 2026-09-19 |
 | [005](adrs/005-isolamento.md) | Isolamento e evidências | proposto | 2026-09-19 |
+| [006](adrs/006-contrato-m1.md) | Contrato preliminar e conformidade M1 | aceito | 2026-09-20 |
+
+Contrato de integração: [Event Protocol 0.1.0](contracts/event-protocol-0.1.0.md).
+Runtime serve os documentos em rotas somente leitura. Oráculo sintético permanece
+em scripts/event_conformance.py e não é usado pela aplicação para aceitar dados.

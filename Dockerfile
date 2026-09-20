@@ -8,7 +8,8 @@ FROM base AS test
 RUN pip install --no-cache-dir -c constraints.txt -r requirements-dev.txt
 COPY tests ./tests
 COPY scripts ./scripts
-RUN python -m pytest -q
+COPY pyproject.toml ./
+RUN python scripts/build_contracts.py --check && ruff check app scripts tests && python -m pytest -q
 FROM base AS runtime
 ARG REVISION=local
 ENV APP_REVISION=${REVISION}

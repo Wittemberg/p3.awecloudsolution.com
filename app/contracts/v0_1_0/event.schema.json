@@ -1,0 +1,770 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0",
+      "type": "string"
+    },
+    "event_id": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "cash_session.opened",
+        "cash_session.closed",
+        "cash.supplied",
+        "cash.withdrawn",
+        "cash.drawer_opened",
+        "transaction.started",
+        "transaction.subtotal_requested",
+        "transaction.completed",
+        "transaction.cancelled_before_completion",
+        "transaction.voided_after_completion",
+        "item.added",
+        "item.cancelled",
+        "payment.registered",
+        "change.registered"
+      ]
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "tenant_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "organization_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "store_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "terminal_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "source_session_id": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "source_sequence": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "transaction_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "event_id",
+    "event_type",
+    "occurred_at",
+    "tenant_id",
+    "organization_id",
+    "store_id",
+    "terminal_id",
+    "source_id",
+    "source_session_id",
+    "source_sequence",
+    "session_id",
+    "payload"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://p3.awecloudsolution.com/api/contracts/0.1.0/event.schema.json",
+  "title": "P3 Event Protocol 0.1.0 (M1 contract)",
+  "$defs": {
+    "cash_session.opened": {
+      "type": "object",
+      "properties": {
+        "operator_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "opening_amount": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,11})\\.[0-9]{2}$"
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "BRL"
+          ]
+        }
+      },
+      "required": [
+        "operator_id",
+        "opening_amount",
+        "currency"
+      ],
+      "additionalProperties": false
+    },
+    "cash_session.closed": {
+      "type": "object",
+      "properties": {
+        "operator_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "reported_amount": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,11})\\.[0-9]{2}$"
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "BRL"
+          ]
+        }
+      },
+      "required": [
+        "operator_id",
+        "reported_amount",
+        "currency"
+      ],
+      "additionalProperties": false
+    },
+    "cash.supplied": {
+      "type": "object",
+      "properties": {
+        "movement_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "operator_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "amount": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,11})\\.[0-9]{2}$"
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "BRL"
+          ]
+        }
+      },
+      "required": [
+        "movement_id",
+        "operator_id",
+        "amount",
+        "currency"
+      ],
+      "additionalProperties": false
+    },
+    "cash.withdrawn": {
+      "type": "object",
+      "properties": {
+        "movement_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "operator_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "amount": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,11})\\.[0-9]{2}$"
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "BRL"
+          ]
+        }
+      },
+      "required": [
+        "movement_id",
+        "operator_id",
+        "amount",
+        "currency"
+      ],
+      "additionalProperties": false
+    },
+    "cash.drawer_opened": {
+      "type": "object",
+      "properties": {
+        "operator_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "reason": {
+          "type": "string",
+          "enum": [
+            "PAYMENT",
+            "CASH_MOVEMENT",
+            "MANUAL",
+            "UNKNOWN"
+          ]
+        }
+      },
+      "required": [
+        "operator_id",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "transaction.started": {
+      "type": "object",
+      "properties": {
+        "operator_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "transaction_type": {
+          "const": "SALE",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operator_id",
+        "transaction_type"
+      ],
+      "additionalProperties": false
+    },
+    "transaction.subtotal_requested": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,11})\\.[0-9]{2}$"
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "BRL"
+          ]
+        }
+      },
+      "required": [
+        "amount",
+        "currency"
+      ],
+      "additionalProperties": false
+    },
+    "transaction.completed": {
+      "type": "object",
+      "properties": {
+        "net_total": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,11})\\.[0-9]{2}$"
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "BRL"
+          ]
+        },
+        "item_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "payment_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "required": [
+        "net_total",
+        "currency",
+        "item_count",
+        "payment_count"
+      ],
+      "additionalProperties": false
+    },
+    "transaction.cancelled_before_completion": {
+      "type": "object",
+      "properties": {
+        "reason_code": {
+          "type": "string",
+          "enum": [
+            "CUSTOMER_REQUEST",
+            "OPERATOR_ERROR",
+            "SUPERVISOR_REVIEW",
+            "OTHER"
+          ]
+        },
+        "operator_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        }
+      },
+      "required": [
+        "reason_code",
+        "operator_id"
+      ],
+      "additionalProperties": false
+    },
+    "transaction.voided_after_completion": {
+      "type": "object",
+      "properties": {
+        "reason_code": {
+          "type": "string",
+          "enum": [
+            "CUSTOMER_REQUEST",
+            "OPERATOR_ERROR",
+            "SUPERVISOR_REVIEW",
+            "OTHER"
+          ]
+        },
+        "operator_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "authorization_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "authorized_by": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        }
+      },
+      "required": [
+        "reason_code",
+        "operator_id",
+        "authorization_id",
+        "authorized_by"
+      ],
+      "additionalProperties": false
+    },
+    "item.added": {
+      "type": "object",
+      "properties": {
+        "line_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "sku": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "quantity": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,8})\\.[0-9]{3}$",
+          "not": {
+            "const": "0.000"
+          }
+        },
+        "unit": {
+          "type": "string",
+          "enum": [
+            "UN",
+            "KG",
+            "L",
+            "M"
+          ]
+        },
+        "unit_price": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,11})\\.[0-9]{2}$"
+        },
+        "total": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,11})\\.[0-9]{2}$"
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "BRL"
+          ]
+        },
+        "capture_method": {
+          "type": "string",
+          "enum": [
+            "BARCODE_SCAN",
+            "MANUAL_ENTRY",
+            "SCALE",
+            "PLU"
+          ]
+        },
+        "weighed_in_store": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "line_id",
+        "sku",
+        "quantity",
+        "unit",
+        "unit_price",
+        "total",
+        "currency",
+        "capture_method",
+        "weighed_in_store"
+      ],
+      "additionalProperties": false
+    },
+    "item.cancelled": {
+      "type": "object",
+      "properties": {
+        "line_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "sku": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "quantity": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,8})\\.[0-9]{3}$",
+          "not": {
+            "const": "0.000"
+          }
+        },
+        "unit": {
+          "type": "string",
+          "enum": [
+            "UN",
+            "KG",
+            "L",
+            "M"
+          ]
+        },
+        "total": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,11})\\.[0-9]{2}$"
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "BRL"
+          ]
+        },
+        "reason_code": {
+          "type": "string",
+          "enum": [
+            "CUSTOMER_REQUEST",
+            "OPERATOR_ERROR",
+            "SUPERVISOR_REVIEW",
+            "OTHER"
+          ]
+        },
+        "operator_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        }
+      },
+      "required": [
+        "line_id",
+        "sku",
+        "quantity",
+        "unit",
+        "total",
+        "currency",
+        "reason_code",
+        "operator_id"
+      ],
+      "additionalProperties": false
+    },
+    "payment.registered": {
+      "type": "object",
+      "properties": {
+        "payment_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "CASH",
+            "PIX",
+            "CREDIT_CARD",
+            "DEBIT_CARD",
+            "VOUCHER",
+            "OTHER"
+          ]
+        },
+        "amount": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,11})\\.[0-9]{2}$"
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "BRL"
+          ]
+        }
+      },
+      "required": [
+        "payment_id",
+        "method",
+        "amount",
+        "currency"
+      ],
+      "additionalProperties": false
+    },
+    "change.registered": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,11})\\.[0-9]{2}$"
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "BRL"
+          ]
+        }
+      },
+      "required": [
+        "amount",
+        "currency"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "event_type": {
+          "const": "cash_session.opened"
+        },
+        "payload": {
+          "$ref": "#/$defs/cash_session.opened"
+        }
+      },
+      "required": []
+    },
+    {
+      "properties": {
+        "event_type": {
+          "const": "cash_session.closed"
+        },
+        "payload": {
+          "$ref": "#/$defs/cash_session.closed"
+        }
+      },
+      "required": []
+    },
+    {
+      "properties": {
+        "event_type": {
+          "const": "cash.supplied"
+        },
+        "payload": {
+          "$ref": "#/$defs/cash.supplied"
+        }
+      },
+      "required": []
+    },
+    {
+      "properties": {
+        "event_type": {
+          "const": "cash.withdrawn"
+        },
+        "payload": {
+          "$ref": "#/$defs/cash.withdrawn"
+        }
+      },
+      "required": []
+    },
+    {
+      "properties": {
+        "event_type": {
+          "const": "cash.drawer_opened"
+        },
+        "payload": {
+          "$ref": "#/$defs/cash.drawer_opened"
+        }
+      },
+      "required": []
+    },
+    {
+      "properties": {
+        "event_type": {
+          "const": "transaction.started"
+        },
+        "payload": {
+          "$ref": "#/$defs/transaction.started"
+        }
+      },
+      "required": [
+        "transaction_id"
+      ]
+    },
+    {
+      "properties": {
+        "event_type": {
+          "const": "transaction.subtotal_requested"
+        },
+        "payload": {
+          "$ref": "#/$defs/transaction.subtotal_requested"
+        }
+      },
+      "required": [
+        "transaction_id"
+      ]
+    },
+    {
+      "properties": {
+        "event_type": {
+          "const": "transaction.completed"
+        },
+        "payload": {
+          "$ref": "#/$defs/transaction.completed"
+        }
+      },
+      "required": [
+        "transaction_id"
+      ]
+    },
+    {
+      "properties": {
+        "event_type": {
+          "const": "transaction.cancelled_before_completion"
+        },
+        "payload": {
+          "$ref": "#/$defs/transaction.cancelled_before_completion"
+        }
+      },
+      "required": [
+        "transaction_id"
+      ]
+    },
+    {
+      "properties": {
+        "event_type": {
+          "const": "transaction.voided_after_completion"
+        },
+        "payload": {
+          "$ref": "#/$defs/transaction.voided_after_completion"
+        }
+      },
+      "required": [
+        "transaction_id"
+      ]
+    },
+    {
+      "properties": {
+        "event_type": {
+          "const": "item.added"
+        },
+        "payload": {
+          "$ref": "#/$defs/item.added"
+        }
+      },
+      "required": [
+        "transaction_id"
+      ]
+    },
+    {
+      "properties": {
+        "event_type": {
+          "const": "item.cancelled"
+        },
+        "payload": {
+          "$ref": "#/$defs/item.cancelled"
+        }
+      },
+      "required": [
+        "transaction_id"
+      ]
+    },
+    {
+      "properties": {
+        "event_type": {
+          "const": "payment.registered"
+        },
+        "payload": {
+          "$ref": "#/$defs/payment.registered"
+        }
+      },
+      "required": [
+        "transaction_id"
+      ]
+    },
+    {
+      "properties": {
+        "event_type": {
+          "const": "change.registered"
+        },
+        "payload": {
+          "$ref": "#/$defs/change.registered"
+        }
+      },
+      "required": [
+        "transaction_id"
+      ]
+    }
+  ]
+}
