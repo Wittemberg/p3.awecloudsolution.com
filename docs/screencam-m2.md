@@ -1,9 +1,13 @@
 # ScreenCam M2 — preparação e ensaio
 
-Estado: implementação em andamento, sem qualificação real. Tarefas canônicas:
+Estado: kit implementado; recuperação histórica real demonstrada em 2026-10-08,
+com critérios de qualificação ainda pendentes (seções 7 e 8). Tarefas canônicas:
 `openspec/changes/m2-screencam-poc/tasks.md`.
 
 ## Inventário em 2026-09-20
+
+Registro histórico de preparação. O inventário do ensaio de setembro está no
+relatório de hardware ao final; pendências desta seção não representam o estado atual.
 
 | Item | Evidência / pendência |
 |---|---|
@@ -77,7 +81,7 @@ consultada em 2026-09-20.
 
 ## Supervisor e serviço de usuário
 
-Implementação disponível, ainda aguardando ensaio com FFmpeg/MediaMTX real:
+Implementação disponível, com laboratório sintético e ensaio de hardware relatados:
 
 ```sh
 python3 scripts/screencam_capture.py .local/screencam/config.json
@@ -222,3 +226,147 @@ firmware/versões, configuração sem credenciais, duração/amostras, método e
 de cada métrica, interrupções, janela de histórico, evidências privadas e conclusão.
 Campos não medidos ficam `inconclusivo`; ausência de evidência nunca vira aprovação.
 Definir prazo de exclusão das gravações sintéticas antes de iniciar a campanha.
+
+## Relatório de Qualificação Real (Hardware Mint + NVR SIGMA-N210)
+
+Relato de ensaio em hardware físico em 2026-09-22 / 2026-09-23 referente às Tasks
+2.3, 4.1, 4.2, 4.3 e 4.4. A revisão de 2026-10-07 preserva as observações abaixo,
+mas não confirma conclusão integral de 4.2/4.3: faltam evidências descritas na seção 7.
+
+### 1. Inventário e Topologia Privada (Task 4.1)
+
+- **Estação de captura:** Linux Mint 21 (Vanessa), X11 nativo em display `:0`, resolução 1024x768, IP privado `192.168.15.127`, usuário não-root `startwo`.
+- **Gravador NVR:** AiTek SIGMA-N210 (10 canais digitais, placa Xiongmai/JFTech `NBD88X16S-KL-V3`), firmware `V4.03.R11.C6380251.12201.040000.0000000`, IP privado `192.168.15.110`.
+- **Canais ativos no NVR:**
+  - Canal D01: Câmera IP física em operação (`192.168.15.111`).
+  - Canal D02: ScreenCam Linux Mint (`192.168.15.127:8554/screencam`).
+- **Topologia de rede:** Túnel seguro WireGuard `wg0` (`10.10.1.0/24` para `192.168.15.0/24`), RTT médio 25-70 ms, 0% perda de pacotes. Nenhuma porta RTSP ou NVR exposta à internet.
+
+### 2. Compatibilidade de Protocolo e Perfil (Task 4.4)
+
+- **RTSP Custom1:** **Suportado e homologado**.
+  - O cadastro manual via perfil `Custom1` no NVR permite preenchimento arbitrário dos paths RTSP.
+  - Requisito mandatório de codec: H.264 Constrained Baseline Profile (nível 3.1) com repetição obrigatória de cabeçalhos SPS/PPS em cada keyframe (`-x264-params repeat-headers=1` e `-bsf:v dump_extra`). Sem repetição in-band, o decodificador de hardware do NVR rejeita os frames e apresenta tela preta.
+  - Paths configurados: MainStream `/screencam`, SubStream (Extra Stream) `/video2` ou `/screencam`.
+- **ONVIF:** **Não suportado pelo MediaMTX nativo** (MediaMTX 1.12.3 opera como servidor RTSP puro na porta 8554 e não implementa o daemon SOAP/WS-Discovery ONVIF).
+- **Sofia / NetIP (Porta 34567):** **Suportado**. Utilizado para telemetria, conferência de canais, estado de disco e busca de histórico via `OPFileQuery` (opcode 1440).
+- **Descoberta ONVIF/WS-Discovery no firmware:** **Inconclusiva**. Não há resultado
+  separado de teste de descoberta na LAN/VPN. A ausência de servidor ONVIF no
+  MediaMTX não demonstra ausência dessa capacidade no NVR.
+
+### 3. Ensaio Contínuo e Consumo (Task 4.2)
+
+- **Duração contínua inicial:** 95,5 minutos ininterruptos (57.470 frames gerados a 10,00 FPS estáveis).
+- **Consumo de recursos no Mint (amostragem ps/top):**
+  - `ffmpeg` (captura X11 e encoding H.264): 46,9% de 1 núcleo (~11% da CPU total da máquina), RSS de 83,9 MB.
+  - `mediamtx` (servidor RTSP): 3,6% de CPU, RSS de 24,2 MB.
+  - `screencam_capture.py` (supervisor): 0,1% de CPU, RSS de 13,0 MB.
+  - **Total de memória residente:** ~121 MB.
+- **Qualidade visual:** Exibição do desktop com terminal e janelas perfeitamente legíveis na tela do NVR (tanto no mosaico quanto em tela cheia).
+
+### 4. Ensaio de Interrupção e Resiliência (Task 4.2)
+
+Foram executadas 3 interrupções forçadas via SIGTERM no encoder, verificando o supervisor e o NVR:
+
+1. **Interrupção 1:** Falha detectada pelo supervisor (`encoder_exit`); backoff de 1,95 s; novo encoder iniciado em 2,5 s; NVR reconectou a sessão RTSP em 14 s.
+2. **Interrupção 2:** Falha detectada; backoff de 4,73 s; novo encoder iniciado em 5,2 s; NVR reconectou a sessão RTSP em 8 s.
+3. **Interrupção 3:** Falha detectada; backoff de 9,02 s; novo encoder iniciado em 9,6 s; NVR reconectou a sessão RTSP em 7 s.
+
+Todas as três tentativas recuperaram a transmissão automaticamente sem intervenção humana e sem travar o NVR.
+
+### 5. Gravação em Disco e Recuperação Histórica (Task 4.3)
+
+- **Espaço e Partição:** HD de 2 TB instalado (`/idea0`, 1.907.729 MB total); status OK.
+- **Volume gravado durante o ensaio:** 3.122 MB (3,12 GB) gravados continuamente no canal D02.
+- **Estrutura de arquivos históricos:** Blocos contínuos gravados em `/idea0/2026-09-22/002/` e `/idea0/2026-09-23/002/` com tag de gravação regular `[R]`.
+- **Validação de consulta:** A consulta remota via protocolo NetIP (`OPFileQuery`, opcode 1440) retornou a lista completa de arquivos gravados no canal 1 (D02) cobrindo todos os intervalos do ensaio.
+
+### 6. Serviço de Usuário Systemd (Task 2.3)
+
+- Unidades `p3-mediamtx.service` e `p3-screencam.service` instaladas em `~/.config/systemd/user/` no Mint.
+- Habilitadas com `systemctl --user enable --now`.
+- Binários e scripts em modo 600 sob `~/.local/lib/p3-screencam/` e configuração privada em `~/.config/p3-screencam/config.json`.
+- Processos gerenciados nativamente por cgroup de usuário com logging em journald.
+
+### 7. Revisão das evidências de fechamento — 2026-10-07
+
+Foram consultados este relatório, as tarefas/spec/design da mudança, os relatórios
+sintéticos em `.local/p3-video-lab-*/report.json` e o inventário de arquivos em
+`/root/guarderia-evidencias/nvr-audit-20260922/`. Este último contém preflight e
+sondagens HTTP/HTTPS/rede, sem mídia de playback. Não foi localizado nesses caminhos
+um trecho exportado do NVR nem registro de reprodução após parar o publicador.
+Os números do ensaio acima são observações do relato anterior, não novas medições.
+
+| Critério | Resultado da revisão |
+|---|---|
+| Histórico após parar a fonte | Pendente: OPFileQuery lista arquivos; não demonstra reprodução/exportação com os marcadores esperados |
+| Janela pedida/retornada, drift e lacunas | Inconclusivos: faltam horários e comparação do trecho recuperado |
+| Interrupção de transporte por 30 s, três vezes | Pendente: o relato registra SIGTERM no encoder, sem duração da indisponibilidade do transporte |
+| Restart do serviço e região persistida no Mint | Pendente de registro antes/depois; há testes sintéticos e relato de instalação das unidades |
+| CPU/RAM/FPS e estabilidade no Mint | Valores relatados acima; limites prévios de consumo não localizados |
+| Bitrate, frames perdidos e latência no hardware | Inconclusivos: sem medição/método registrados; valores do laboratório não os substituem |
+| RTSP e descoberta | RTSP relatado como funcional; descoberta permanece inconclusiva e separada de ONVIF no MediaMTX |
+
+Para concluir 4.3, localizar a evidência existente ou executar o roteiro de histórico
+com conteúdo sintético: registrar parada da fonte, janela solicitada e retornada,
+marcadores recuperados, drift, gaps, método e resultado de reprodução/decodificação.
+A recuperação posterior está na seção 8; a mídia permanece fora do Git. Para concluir
+4.2, complementar os registros do ensaio
+ou repetir os cenários faltantes, definindo critérios de consumo antes da medição.
+M2 permanece ativo até esses critérios serem conferidos; sincronização e arquivamento
+nesta revisão não foram realizados.
+
+### 8. Recuperação histórica executada — 2026-10-08
+
+O usuário confirmou que não havia extraído gravação e autorizou acesso ao NVR de
+bancada. Consulta pela WireGuard: portas 80/554/34567 acessíveis; autenticação NetIP
+aceita. Mint não respondeu nas portas 22/8554 testadas; isso não comprova parada
+controlada da fonte nem estado atual do serviço.
+
+OPFileQuery retornou 9 arquivos em 22/09 e 23 em 23/09 para o canal D02.
+Um primeiro arquivo curto de 22/09 continha câmera física; foi excluído da evidência
+ScreenCam. O número do canal sozinho não identifica sua fonte ao longo do tempo.
+
+Foram recuperadas duas janelas posteriores por OPPlayBack, modo ByName, usando
+Claim (1424), DownloadStart/DownloadStop (1420) e dados (1426). O formato de frames
+e a implementação foram consultados no [cliente OpenIPC, revisão fixada](https://github.com/OpenIPC/python-dvr/tree/6ea861a1e99cab5922084a4a0eac6fe2d5b6120d).
+Os cabeçalhos do NVR foram separados do H.264; fragmentos incompletos nas bordas
+foram descartados, sem preencher frames ausentes.
+
+| Janela pedida, relógio do NVR em 23/09 | Frames completos recuperados | Resultado |
+|---|---|---|
+| 00:01:00–00:01:15 | 00:01:01–aprox. 00:01:12,9; 120 frames / 12 s | Fundo de tela do desktop; sem marcadores |
+| 09:01:00–09:01:15 | 09:01:01–aprox. 09:01:13,6; 127 frames / 12,7 s | Tela com vídeo pausado e diálogo legível; sem marcadores |
+
+Ambos: H.264 Constrained Baseline, 1024×768, 10 FPS no cabeçalho do NVR.
+FFmpeg decodificou os H.264 extraídos com `-xerror`, exit 0 e stderr vazio.
+O primeiro frame de cada janela foi inspecionado. Um MP4 sem recodificação foi
+verificado com ffprobe: 127 frames, 10 FPS e 12,7 s.
+
+Tempos de keyframes têm precisão de segundos. O horário do último frame é estimado
+pela contagem de frames após o último keyframe a 10 FPS; não mede drift entre Mint
+e NVR. Nas janelas verificadas, keyframes aparecem a cada 2 s/20 frames. As perdas
+nas bordas decorrem do recorte/extração e não demonstram gaps da gravação original.
+Não foram localizados marcadores sintéticos; a tarefa 4.3 permanece parcialmente
+atendida até demonstrar o cenário completo da spec.
+
+[Evidência sanitizada](screencam-nvr-retrieval-evidence.json) contém hashes, contagens,
+janelas e limitações. Mídia, consultas e scripts do procedimento ficam em
+`.local/nvr-retrieval-20261007/`, modo privado, fora do Git. MP4:
+`screencam-20260923-090101.mp4`. A pasta mantém o nome da data de início da revisão.
+
+### 9. Verificações locais desta revisão
+
+- Build Docker `--target test` aprovado, incluindo pytest, Ruff e verificação de
+  divergência dos artefatos de contrato. Reexecução após interrupção reutilizou o cache.
+- Unidade systemd aprovada por `systemd-analyze --user verify` fora do sandbox.
+- OpenSpec 1.13.1: `validate --all --strict`, inicialmente 3/3; verificação final
+  4/4 após aparecer uma spec consolidada local não versionada, preservada nesta
+  revisão. Há aviso informativo de que o delta ADDED já existe nessa spec;
+  reconciliar o estado de sincronização antes de arquivar, após os critérios reais.
+- Laboratório `p3-video-lab-f0d21873` aprovado com o encoder atualizado: frames
+  decodificados antes/depois de falha de transporte, retomada em 6,236 s, acesso
+  indevido negado, 73 marcadores válidos, aproximadamente 10 FPS. Latência sintética
+  geração→decodificação p95 779,361 ms; não equivale à latência do hardware.
+  Relatório privado em `.local/p3-video-lab-f0d21873/report.json`; recursos removidos
+  pelo executor. O ensaio valida transporte, não supre a campanha real pendente.

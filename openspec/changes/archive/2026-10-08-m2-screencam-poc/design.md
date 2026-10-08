@@ -3,9 +3,11 @@
 ## Context
 
 Ver proposal.md. M1 está publicado; o servidor Ubuntu não é o Mint do teste.
-O usuário ainda preparará esse equipamento. NVR informado: AITEK SIGMA-N210;
-firmware identificado em fotografia (inventário em docs/screencam-m2.md), com
-reconferência no acesso pendente. Acesso depende de VPN ainda não configurada.
+Na preparação, o usuário ainda montaria o equipamento. O relato do ensaio de
+setembro identifica Mint 21/X11 e AITEK SIGMA-N210, firmware no inventário de
+docs/screencam-m2.md. Em 08/10, o acesso privado ao NVR pela WireGuard foi verificado
+e histórico ScreenCam recuperado/decodificado. O Mint não respondeu nas portas
+testadas; a qualificação completa segue pendente conforme as tarefas 4.2/4.3.
 Recursos do servidor são compartilhados (4 GiB RAM); não armazenar vídeo contínuo ali.
 
 ## Goals / Non-Goals
@@ -45,6 +47,15 @@ que MediaMTX transforma RTSP em câmera ONVIF. Windows e Wayland exigem outra ca
   incerteza. Histórico exige exportação/reprodução após parar a fonte.
 
 ## Risks / Trade-offs
+
+Atualização de execução: o relato de hardware usa MediaMTX nativo como serviço de
+usuário no Mint; containers permanecem no laboratório e no template não implantado.
+O encoder passou a H.264 Baseline com cabeçalhos repetidos para compatibilidade
+observada. A extração histórica por NetIP foi conferida separadamente do laboratório;
+fragmentos incompletos nas bordas do download precisam ser descartados e a janela
+efetivamente decodificada deve ser exposta. O mesmo canal D02 continha câmera física
+em um horário anterior e ScreenCam depois: canal não equivale a origem permanente.
+Marcadores/drift e falha de transporte controlada no Mint ainda precisam de evidência.
 
 - [Capacidades do SIGMA-N210 não verificadas; etiqueta indica H.265] → verificar
   aceitação H.264 e reconferir firmware fotografado antes

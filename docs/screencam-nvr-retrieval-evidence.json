@@ -1,0 +1,59 @@
+{
+  "review_date": "2026-10-08",
+  "environment": "real-nvr-history",
+  "method": "NetIP OPFileQuery(1440), OPPlayBack Claim(1424), DownloadStart/Stop(1420), data(1426); ByName",
+  "channel": "D02",
+  "queried_dates": [
+    "2026-09-22",
+    "2026-09-23"
+  ],
+  "file_count": 32,
+  "clips": [
+    {
+      "requested_start_nvr_local": "2026-09-23 00:01:00",
+      "requested_end_nvr_local": "2026-09-23 00:01:15",
+      "raw_bytes": 983040,
+      "raw_sha256": "ea919d8762687735b2924faa2ce18ccaaea6cf4b11f5d7ed8780ab915eb2ba21",
+      "first_keyframe_nvr_local": "2026-09-23 00:01:01",
+      "last_keyframe_nvr_local": "2026-09-23 00:01:11",
+      "estimated_last_frame_nvr_local": "2026-09-23 00:01:12.900000",
+      "fps_from_nvr_header": 10,
+      "frames_demuxed": 120,
+      "leading_bytes_skipped": 38498,
+      "trailing_bytes_not_demuxed": 117081,
+      "decoder_exit_code": 0,
+      "decoder_stderr_bytes": 0,
+      "content_observation": "Desktop wallpaper; no synthetic markers",
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "requested_start_nvr_local": "2026-09-23 09:01:00",
+      "requested_end_nvr_local": "2026-09-23 09:01:15",
+      "raw_bytes": 2457600,
+      "raw_sha256": "5f8711fbdc3f9a09edf293f61ef108f7dba0f5dc0ab24da7cfd39ee8ea88af37",
+      "first_keyframe_nvr_local": "2026-09-23 09:01:01",
+      "last_keyframe_nvr_local": "2026-09-23 09:01:13",
+      "estimated_last_frame_nvr_local": "2026-09-23 09:01:13.600000",
+      "fps_from_nvr_header": 10,
+      "frames_demuxed": 127,
+      "leading_bytes_skipped": 190788,
+      "trailing_bytes_not_demuxed": 10001,
+      "decoder_exit_code": 0,
+      "decoder_stderr_bytes": 0,
+      "content_observation": "Screen video paused; readable dialog; no synthetic markers",
+      "width": 1024,
+      "height": 768
+    }
+  ],
+  "historical_screencam_retrieval": "demonstrated",
+  "m2_marked_synthetic_sequence": "not_demonstrated",
+  "publisher_stop_evidence": "Mint unreachable on tested ports; no controlled stop or service status observed",
+  "clock_drift_at_recording": "inconclusive; no source clock markers",
+  "boundary_limitations": "Whole-second keyframe timestamps. Raw download starts/ends inside frames. Demux discards incomplete leading/trailing frames. Estimated last frame assumes header FPS.",
+  "physical_camera_sample": "Earlier D02 file was a physical camera; excluded from ScreenCam evidence",
+  "media_policy": "Media and credentials kept in ignored .local; no media embedded in this report",
+  "sources": [
+    "https://github.com/OpenIPC/python-dvr/tree/6ea861a1e99cab5922084a4a0eac6fe2d5b6120d"
+  ]
+}

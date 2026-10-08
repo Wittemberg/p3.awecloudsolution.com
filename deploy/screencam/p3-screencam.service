@@ -7,6 +7,8 @@ StartLimitBurst=3
 
 [Service]
 Type=simple
+Environment=DISPLAY=:0
+Environment=XDG_SESSION_TYPE=x11
 ExecStart=/usr/bin/python3 %h/.local/lib/p3-screencam/screencam_capture.py %h/.config/p3-screencam/config.json
 Restart=on-failure
 RestartPreventExitStatus=2
@@ -20,4 +22,4 @@ StandardOutput=journal
 StandardError=journal
 
 [Install]
-WantedBy=graphical-session.target
+WantedBy=graphical-session.target default.target

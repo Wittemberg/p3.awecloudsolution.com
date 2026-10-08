@@ -34,7 +34,9 @@ def command(config):
             "-framerate", str(config["fps"]), "-video_size", f"{region['width']}x{region['height']}",
             "-draw_mouse", "0", "-i", f"{config['display']}+{region['x']},{region['y']}",
             "-an", "-c:v", "libx264", "-preset", "ultrafast", "-tune", "zerolatency",
-            "-pix_fmt", "yuv420p", "-g", str(config["fps"] * 2), "-sc_threshold", "0",
+            "-pix_fmt", "yuv420p", "-profile:v", "baseline", "-level", "3.1",
+            "-x264-params", "repeat-headers=1", "-bsf:v", "dump_extra",
+            "-g", str(config["fps"] * 2), "-sc_threshold", "0",
             "-b:v", "1500k", "-maxrate", "2000k", "-bufsize", "2000k",
             "-f", "rtsp", "-rtsp_transport", "tcp", target]
 
